@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Output (scraped data, databases)
+output/
+
+# URL lists (project-specific, not part of the tool)
+*_urls.txt
+
+# Logs and internal notes
+agent_log.md
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE / editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code internal
+.claude/

@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+if [ $# -eq 0 ]; then
+    cat <<EOF
+Usage: scrape <url> [name] [extra run.py args]
+
+Examples:
+  scrape https://docs.pega.com/
+  scrape https://docs.camunda.io/ camunda
+  scrape https://docs.servicenow.com/ servicenow-csm --max 500 --skip-rag
+
+If [name] is omitted, it's derived from the URL hostname.
+Any flags after [name] are forwarded to run.py.
+EOF
+    exit 1
+fi
+
+URL="$1"
+shift
+
+NAME=""
+if [ $# -gt 0 ] && [[ "$1" != --* ]]; then
+    NAME="$1"
+    shift
+else
+    host="${URL#*://}"
+    host="${host%%/*}"
+    host="${host#docs.}"
+    host="${host#www.}"
+    NAME="${host%%.*}"
+fi
+
+echo "Scraping: $URL"
+echo "Name:     $NAME"
+echo "Output:   $DIR/output/$NAME"
+echo ""
+
+exec "$DIR/venv/bin/python3" "$DIR/run.py" --url "$URL" --name "$NAME" "$@"
