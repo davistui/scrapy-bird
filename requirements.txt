@@ -4,6 +4,7 @@ markdownify
 lxml
 chromadb
 sentence-transformers
+rank-bm25
 tqdm
 playwright
 pymupdf4llm
